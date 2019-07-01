@@ -3,12 +3,15 @@ import state from "./state.js";
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
-function draw() {    
+function draw() {
     resizeCanvas();
     fillBackground();
     drawTower(state.getTowerA(), 1);
     drawTower(state.getTowerB(), 2);
     drawTower(state.getTowerC(), 3);
+    drawTowerLetter("A", 1);
+    drawTowerLetter("B", 2);
+    drawTowerLetter("C", 3);
 }
 
 function resizeCanvas() {
@@ -19,10 +22,8 @@ function resizeCanvas() {
 }
 
 function fillBackground() {
-    context.beginPath();
     context.fillStyle = "#88b";
     context.fillRect(0, 0, canvas.width, canvas.width);
-    context.stroke();
 }
 
 function drawTower(tower, position) {
@@ -49,7 +50,14 @@ function drawDisk(towerPosition, diskIndex, diskSize) {
     context.moveTo(towerPosition * fourthhWidth - diskSize*diskWidth, fourthhWidth*3 - diskIndex*diskHeight - diskHeight/2);
     context.lineTo(towerPosition * fourthhWidth + diskSize*diskWidth, fourthhWidth*3 - diskIndex*diskHeight - diskHeight/2);
     context.stroke();
+}
 
+function drawTowerLetter(letter, towerPosition) {
+    const fourthhWidth = canvas.width / 4;
+    context.fillStyle = "#000";
+    context.font = "60px Arial";
+    context.textAlign = "center"; 
+    context.fillText(letter, towerPosition * fourthhWidth, fourthhWidth*3 + 60);
 }
 
 function calcCanvasWidth() {
