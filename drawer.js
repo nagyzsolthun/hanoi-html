@@ -15,6 +15,7 @@ function resizeCanvas() {
     const size = calcCanvasWidth();
     canvas.width = size;
     canvas.height = size;
+    context.scale = window.devicePixelRatio;
 }
 
 function fillBackground() {
@@ -52,10 +53,9 @@ function drawDisk(towerPosition, diskIndex, diskSize) {
 }
 
 function calcCanvasWidth() {
-    const scale = window.devicePixelRatio;
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    return Math.min(screenWidth, screenHeight) * scale;
+    return Math.min(screenWidth, screenHeight);
 }
 
 export default { draw }
