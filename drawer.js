@@ -45,7 +45,7 @@ function drawDisk(towerPosition, diskIndex, diskSize) {
     const diskWidth = canvas.width / 100;
 
     context.lineWidth = diskHeight;
-    context.strokeStyle = `hsl(${36 * diskIndex},70%,50%)`;
+    context.strokeStyle = `hsl(${36 * diskSize},70%,50%)`;
     context.beginPath();
     context.moveTo(towerPosition * fourthhWidth - diskSize*diskWidth, fourthhWidth*3 - diskIndex*diskHeight - diskHeight/2);
     context.lineTo(towerPosition * fourthhWidth + diskSize*diskWidth, fourthhWidth*3 - diskIndex*diskHeight - diskHeight/2);
