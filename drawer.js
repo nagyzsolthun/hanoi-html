@@ -22,7 +22,7 @@ function resizeCanvas() {
 }
 
 function fillBackground() {
-    context.fillStyle = "#88b";
+    context.fillStyle = "#eee";
     context.fillRect(0, 0, canvas.width, canvas.width);
 }
 
@@ -30,7 +30,8 @@ function drawTower(tower, position) {
     const fourthhWidth = canvas.width / 4;
     context.lineWidth = canvas.width / 200;
 
-    context.strokeStyle  = "black";
+    context.strokeStyle  = "#888";
+    context.lineCap = "round";
     context.beginPath();
     context.moveTo(position * fourthhWidth, fourthhWidth);
     context.lineTo(position * fourthhWidth, fourthhWidth*3);
@@ -45,7 +46,8 @@ function drawDisk(towerPosition, diskIndex, diskSize) {
     const diskWidth = canvas.width / 100;
 
     context.lineWidth = diskHeight;
-    context.strokeStyle = `hsl(${36 * diskSize},70%,50%)`;
+    context.lineCap = "round";
+    context.strokeStyle = `hsl(${(360 / state.DISk_COUNT) * diskSize},70%,50%)`;
     context.beginPath();
     context.moveTo(towerPosition * fourthhWidth - diskSize*diskWidth, fourthhWidth*3 - diskIndex*diskHeight - diskHeight/2);
     context.lineTo(towerPosition * fourthhWidth + diskSize*diskWidth, fourthhWidth*3 - diskIndex*diskHeight - diskHeight/2);
@@ -54,7 +56,7 @@ function drawDisk(towerPosition, diskIndex, diskSize) {
 
 function drawTowerLetter(letter, towerPosition) {
     const fourthhWidth = canvas.width / 4;
-    context.fillStyle = "#000";
+    context.fillStyle = "#444";
     context.font = "60px Arial";
     context.textAlign = "center"; 
     context.fillText(letter, towerPosition * fourthhWidth, fourthhWidth*3 + 60);

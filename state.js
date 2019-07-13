@@ -1,4 +1,4 @@
-const MAX_VALUE = 10;
+const DISk_COUNT = 4;
 
 const towerA = calcFilledTower();
 const towerB = [];
@@ -6,7 +6,7 @@ const towerC = [];
 
 function calcFilledTower() {
     const tower = [];
-    for (var i = MAX_VALUE; i > 0; i--) {
+    for (var i = DISk_COUNT; i > 0; i--) {
         tower.push(i);
     }
     return tower;
@@ -38,7 +38,7 @@ function moveLegal(tower1, tower2) {
 function calcTopDisk(tower) {
     const lastIndex = tower.length - 1;
     if (lastIndex < 0) {
-        return MAX_VALUE + 1;
+        return DISk_COUNT + 1;
     }
     return tower[lastIndex];
 }
@@ -60,4 +60,4 @@ function getTowerC() {
     return towerC;
 }
 
-export default { moveLegalAB, moveLegalAC, moveLegalBC, getTowerA, getTowerB, getTowerC }
+export default { moveLegalAB, moveLegalAC, moveLegalBC, getTowerA, getTowerB, getTowerC, DISk_COUNT }
