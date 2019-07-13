@@ -4,7 +4,7 @@ import drawer from "./drawer.js";
 var count = 0;
 const moves = ["AB","AC","BC"]
 
-window.draw = () => drawer.draw();
+window.draw = () => drawer.draw(0, "AB");
 window.move = _ => {
     if(state.getTowerC().length == state.DISk_COUNT) {
         return;
@@ -22,4 +22,4 @@ window.move = _ => {
     drawer.draw(count, upcomingMove);
 }
 
-drawer.draw(0, "AB");
+draw();

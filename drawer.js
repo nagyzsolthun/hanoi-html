@@ -10,6 +10,7 @@ function draw(count, upcomingMove) {
 
     resizeCanvas();
     fillBackground();
+    drawInstructions();
     drawMoveMarker("AB", 1, upcomingMove == "AB");
     drawMoveMarker("AC", 2, upcomingMove == "AC");
     drawMoveMarker("BC", 3, upcomingMove == "BC");
@@ -20,7 +21,6 @@ function draw(count, upcomingMove) {
     drawTowerLetter("A", 1, highlightedA);
     drawTowerLetter("B", 2, highlightedB);
     drawTowerLetter("C", 3, highlightedC);
-
     drawArrow(upcomingMove);
 }
 
@@ -40,6 +40,13 @@ function calcCanvasWidth() {
 function fillBackground() {
     context.fillStyle = "#eee";
     context.fillRect(0, 0, canvas.width, canvas.width);
+}
+
+function drawInstructions() {
+    context.fillStyle = "#bbb";
+    context.font = "60px Arial";
+    context.textAlign = "center"; 
+    context.fillText("click/tap to move", canvas.width / 2, 80);
 }
 
 function drawMoveMarker(text, position, highlighted) {
