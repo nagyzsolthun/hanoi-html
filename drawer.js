@@ -3,15 +3,25 @@ import state from "./state.js";
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 
-function draw() {
+function draw(count, upcomingMove) {
+    const highlightedA = upcomingMove == "AB" || upcomingMove == "AC";
+    const highlightedB = upcomingMove == "AB" || upcomingMove == "BC";
+    const highlightedC = upcomingMove == "AC" || upcomingMove == "BC";
+
     resizeCanvas();
     fillBackground();
+    drawMoveMarker("AB", 1, upcomingMove == "AB");
+    drawMoveMarker("AC", 2, upcomingMove == "AC");
+    drawMoveMarker("BC", 3, upcomingMove == "BC");
+    drawCounter(count);
     drawTower(state.getTowerA(), 1);
     drawTower(state.getTowerB(), 2);
     drawTower(state.getTowerC(), 3);
-    drawTowerLetter("A", 1);
-    drawTowerLetter("B", 2);
-    drawTowerLetter("C", 3);
+    drawTowerLetter("A", 1, highlightedA);
+    drawTowerLetter("B", 2, highlightedB);
+    drawTowerLetter("C", 3, highlightedC);
+
+    drawArrow(upcomingMove);
 }
 
 function resizeCanvas() {
@@ -21,9 +31,29 @@ function resizeCanvas() {
     context.scale = window.devicePixelRatio;
 }
 
+function calcCanvasWidth() {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    return Math.min(screenWidth, screenHeight);
+}
+
 function fillBackground() {
     context.fillStyle = "#eee";
     context.fillRect(0, 0, canvas.width, canvas.width);
+}
+
+function drawMoveMarker(text, position, highlighted) {
+    context.fillStyle = highlighted ? "#444" : "#bbb";
+    context.font = "60px Arial";
+    context.textAlign = "left"; 
+    context.fillText(text, 20, 60 + position * 60);
+}
+
+function drawCounter(count) {
+    context.fillStyle = "#444";
+    context.font = "60px Arial";
+    context.textAlign = "left"; 
+    context.fillText(count, 20, 60);
 }
 
 function drawTower(tower, position) {
@@ -54,18 +84,46 @@ function drawDisk(towerPosition, diskIndex, diskSize) {
     context.stroke();
 }
 
-function drawTowerLetter(letter, towerPosition) {
+function drawTowerLetter(letter, towerPosition, highlighted) {
     const fourthhWidth = canvas.width / 4;
-    context.fillStyle = "#444";
+    context.fillStyle = highlighted ? "#444" : "#888";
     context.font = "60px Arial";
     context.textAlign = "center"; 
     context.fillText(letter, towerPosition * fourthhWidth, fourthhWidth*3 + 60);
 }
 
-function calcCanvasWidth() {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    return Math.min(screenWidth, screenHeight);
+function drawArrow(move) {
+
+    const fourthhWidth = canvas.width / 4;
+    var startX;
+    var endX;
+    switch(move) {
+        case "AB": startX = fourthhWidth; endX = fourthhWidth*2; break;
+        case "AC": startX = fourthhWidth; endX = fourthhWidth*3; break;
+        case "BC": startX = fourthhWidth*2; endX = fourthhWidth*3; break;
+    }
+
+    context.lineWidth = 5;
+    context.lineCap = "round";
+    context.strokeStyle = "#444";
+    context.beginPath();
+    context.moveTo(startX - 10, fourthhWidth * 3 + 90);
+    context.lineTo(startX, fourthhWidth * 3 + 80);
+    context.lineTo(startX + 10, fourthhWidth * 3 + 90);
+    context.stroke();
+
+    context.beginPath();
+    context.moveTo(endX - 10, fourthhWidth * 3 + 90);
+    context.lineTo(endX, fourthhWidth * 3 + 80);
+    context.lineTo(endX + 10, fourthhWidth * 3 + 90);
+    context.stroke();
+
+    context.beginPath();
+    context.moveTo(startX, fourthhWidth * 3 + 80);
+    context.bezierCurveTo(startX, fourthhWidth * 3 + 200, endX, fourthhWidth * 3 + 200, endX, fourthhWidth * 3 + 80);
+    context.stroke();
 }
+
+
 
 export default { draw }

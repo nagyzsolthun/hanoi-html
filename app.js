@@ -1,18 +1,25 @@
 import state from "./state.js";
 import drawer from "./drawer.js";
 
-window.draw = () => drawer.draw();
+var count = 0;
+const moves = ["AB","AC","BC"]
 
-const moves = [state.moveLegalAB, state.moveLegalAC, state.moveLegalBC];
-function move(count) {
+window.draw = () => drawer.draw();
+window.move = _ => {
     if(state.getTowerC().length == state.DISk_COUNT) {
         return;
     }
 
-    const limitedCount = count > 2 ? 0 : count;
-    moves[limitedCount]()
-    drawer.draw();
-    setTimeout(() => move(limitedCount+1), 300);
+    const move = moves[count % moves.length];
+    switch(move) {
+        case "AB": state.moveLegalAB(); break;
+        case "AC": state.moveLegalAC(); break;
+        case "BC": state.moveLegalBC(); break;
+    }
+
+    count++;
+    const upcomingMove = moves[count % moves.length];
+    drawer.draw(count, upcomingMove);
 }
 
-move(0);
+drawer.draw(0, "AB");
